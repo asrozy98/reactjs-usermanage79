@@ -14,11 +14,11 @@ import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config
 import navigation from '../_nav'
+import { setSidebar, setUnfold } from 'src/redux/actions/Sidebar'
 
 const AppSidebar = () => {
   const dispatch = useDispatch()
-  const unfoldable = useSelector((state) => state.sidebarUnfoldable)
-  const sidebarShow = useSelector((state) => state.sidebarShow)
+  const { sidebarShow, unfoldable } = useSelector((state) => state.SidebarReducer)
 
   return (
     <CSidebar
@@ -26,7 +26,7 @@ const AppSidebar = () => {
       unfoldable={unfoldable}
       visible={sidebarShow}
       onVisibleChange={(visible) => {
-        dispatch({ type: 'set', sidebarShow: visible })
+        dispatch(setSidebar(visible))
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
@@ -40,7 +40,9 @@ const AppSidebar = () => {
       </CSidebarNav>
       <CSidebarToggler
         className="d-none d-lg-flex"
-        onClick={() => dispatch({ type: 'set', sidebarUnfoldable: !unfoldable })}
+        onClick={() => {
+          dispatch(setUnfold(!unfoldable))
+        }}
       />
     </CSidebar>
   )

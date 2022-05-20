@@ -17,10 +17,11 @@ const AppBreadcrumb = () => {
     const breadcrumbs = []
     location.split('/').reduce((prev, curr, index, array) => {
       const currentPathname = `${prev}/${curr}`
+      console.log('#' + currentPathname)
       const routeName = getRouteName(currentPathname, routes)
       routeName &&
         breadcrumbs.push({
-          pathname: currentPathname,
+          pathname: '#' + currentPathname,
           name: routeName,
           active: index + 1 === array.length ? true : false,
         })
